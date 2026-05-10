@@ -128,9 +128,7 @@
 -- Write your query below:
 
 	select
-		emp.staff_id as emp_id,
 		emp.first_name + ' ' + emp.last_name as emp_full_name,
-		man.staff_id as manager_id,
 		man.first_name + ' ' + man.last_name as man_full_name
 	from sales.staffs as emp
 	inner join sales.staffs as man
@@ -150,8 +148,8 @@
 
 -- Write your query below:
 
-
-
+	Select st.store_name,br.brand_name from production.brands as br
+	cross join sales.stores as st -- 27 rows expected after the query
 
 -- ============================================================
 --  Question 9
@@ -164,3 +162,13 @@
 -- ============================================================
 
 -- Write your query below:
+	Select 
+	cust.first_name + ' ' + cust.last_name as full_name,
+	ord.order_id,ord.order_date,prd.product_name,prd.list_price from  sales.customers as cust
+	inner join sales.orders as ord
+	on ord.customer_id=cust.customer_id
+	inner join sales.order_items as ordIt
+	on ordIt.order_id=ord.order_id
+	inner join production.products as prd
+	on prd.product_id=ordIt.product_id
+	order by ord.order_date,full_name asc
